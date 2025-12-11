@@ -23,8 +23,11 @@ export const usePolinations = (prompt, height, width, seed, model) => {
             if (!response.ok) throw new Error(`Something went wrong! Can't generate image now, due to too many requests. Please try again later. ${response.status}`);
 
             const imageBlob = await response.blob();
-            const imageUrl = URL.createObjectURL(imageBlob);
-            setGeneratedImage(imageUrl);
+
+            setGeneratedImage(prev => {
+                if (prev) URL.revokeObjectURL(prev);
+                return URL.createObjectURL(imageBlob);
+            });
 
         } catch (error) {
             setError(error.message);
@@ -51,7 +54,15 @@ export const usePolinations = (prompt, height, width, seed, model) => {
 
     useEffect(() => {
         fetchModelList();
-    }, [])
+    }, [fetchModelList]);
+
+    useEffect(() => {
+        return () => {
+            if (generatedImage) {
+                URL.revokeObjectURL(generatedImage);
+            }
+        };
+    }, [generatedImage]);
 
     return { generatedImage, modelList, loading, error, imageGenerator: fetchImageGenerator };
 }
