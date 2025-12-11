@@ -5,7 +5,6 @@ import { default as image4 } from "../assets/images/ai-image-4.jpeg";
 import { default as image5 } from "../assets/images/ai-image-5.jpeg";
 import { default as image6 } from "../assets/images/ai-image-6.jpeg";
 import CreatedImage from "./Result/CreatedImages";
-// import CreatedImage from "../components/CreateImage/CreateImage";
 
 export default function Downloaded() {
   const imgArray = [image1, image2, image3, image4, image5, image6];
