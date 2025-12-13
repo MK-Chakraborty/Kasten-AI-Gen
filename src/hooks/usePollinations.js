@@ -18,7 +18,7 @@ export const usePolinations = (prompt, height, width, seed, model) => {
             setError(null);
 
             const response = await fetch(`https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seed}&model=${model}`
-            ); // going to return an image.
+            );
 
             if (!response.ok) throw new Error(`Something went wrong! Can't generate image now, due to too many requests. Please try again later. ${response.status}`);
 
@@ -36,11 +36,12 @@ export const usePolinations = (prompt, height, width, seed, model) => {
         }
     }, [prompt, height, width, seed, model]);
 
+
     const fetchModelList = useCallback(async () => {
         try {
             setLoading(prev => ({ ...prev, status: true, message: "fetching models" }));
 
-            const response = await fetch(`https://image.pollinations.ai/models`); // going to return a simple aray. 
+            const response = await fetch(`https://image.pollinations.ai/models`);
 
             if (!response.ok) throw new Error(`Something went wrong! Please try again later. ${response.status}`);
 
