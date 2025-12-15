@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PollinationFetchContext } from "../../context";
 
 export default function PromptBox() {
   const [promptSettings, setPromptSettings] = useState({
@@ -37,9 +38,14 @@ export default function PromptBox() {
     }
   };
 
+  const { setPromptData, modelList, imageGenerator } = useContext(
+    PollinationFetchContext
+  );
+
   const submitPrompt = (e) => {
     e.preventDefault();
-    console.log(promptSettings);
+    setPromptData({ ...promptSettings });
+    imageGenerator();
   };
 
   return (
@@ -81,12 +87,11 @@ export default function PromptBox() {
               id="model"
               className="w-full border-2 rounded-xl p-2 my-1"
             >
-              <option value="flux" className="bg-gray-700">
-                Flux
-              </option>
-              <option value="turbo" className="bg-gray-700">
-                Turbo
-              </option>
+              {modelList.map((model, index) => (
+                <option key={index} value="flux" className="bg-gray-700">
+                  {model}
+                </option>
+              ))}
             </select>
           </div>
 

@@ -1,12 +1,15 @@
 import "./App.css";
 import Page from "./components/Page";
+import PollinationFetchProvider from "./provider/PollinationFetchProvider";
 import RouterProvider from "./provider/RouterProvider";
 
 function App() {
   return (
     <>
       <RouterProvider>
-        <Page />
+        <PollinationFetchProvider>
+          <Page />
+        </PollinationFetchProvider>
       </RouterProvider>
     </>
   );

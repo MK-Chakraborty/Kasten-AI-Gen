@@ -1,5 +1,7 @@
 import { createContext } from 'react';
 
 const RouterContext = createContext("");
+const PollinationFetchContext = createContext("");
 
-export { RouterContext };
+export { PollinationFetchContext, RouterContext };
+
