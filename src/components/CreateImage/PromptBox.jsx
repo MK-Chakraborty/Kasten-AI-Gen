@@ -38,22 +38,16 @@ export default function PromptBox() {
     }
   };
 
-  const { setPromptData, modelList, imageGenerator } = useContext(
-    PollinationFetchContext
-  );
+  const { setPromptData, modelList } = useContext(PollinationFetchContext);
 
   const submitPrompt = (e) => {
     e.preventDefault();
     setPromptData({ ...promptSettings });
-    imageGenerator();
   };
 
   return (
     <form onSubmit={submitPrompt}>
-      <div
-        onSubmit={(e) => submitPrompt(e)}
-        className="flex justify-evenly py-1 px-1 border-4 border-[#26cefb] rounded-4xl mx-2"
-      >
+      <div className="flex justify-evenly py-1 px-1 border-4 border-[#26cefb] rounded-4xl mx-2">
         <input
           onChange={(e) =>
             setPromptSettings({
@@ -88,7 +82,7 @@ export default function PromptBox() {
               className="w-full border-2 rounded-xl p-2 my-1"
             >
               {modelList.map((model, index) => (
-                <option key={index} value="flux" className="bg-gray-700">
+                <option key={index} value={model} className="bg-gray-700">
                   {model}
                 </option>
               ))}
