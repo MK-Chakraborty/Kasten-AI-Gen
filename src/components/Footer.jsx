@@ -22,7 +22,7 @@ export default function Footer() {
               Studio
             </p>
           </aside>
-          <img src={logo} className="w-40" alt="" />
+          <img src={logo} className="w-40" alt="Kasten AI Gen Logo" />
         </footer>
       </div>
     </section>

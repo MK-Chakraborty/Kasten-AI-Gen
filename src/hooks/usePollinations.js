@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export const usePolinations = (prompt, height, width, seed, model) => {
+export const usePollinations = (prompt, height, width, seed, model) => {
 
     const [generatedImage, setGeneratedImage] = useState(null);
     const [modelList, setModelList] = useState([]);

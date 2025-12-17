@@ -1,13 +1,31 @@
+import { memo } from "react";
 import downloadIcon from "../../assets/images/downloadIcon.png";
-export default function CreatedImage({ imgSrc }) {
+function CreatedImage({ imgSrc }) {
+  const handleDownload = (e) => {
+    e.stopPropagation(); // prevents parent click
+    const link = document.createElement("a");
+    link.href = imgSrc;
+    link.download = "ai-image.png";
+    link.click();
+  };
+
   return (
-    <div className="rounded-xl overflow-hidden cursor-pointer relative">
+    <div
+      onClick={handleDownload}
+      className="rounded-xl overflow-hidden cursor-pointer relative"
+    >
       <img
         src={downloadIcon}
         className="w-10 absolute bottom-2 right-2"
-        alt=""
+        alt="download icon"
       />
-      <img src={imgSrc} className="w-full h-48 object-cover" alt="" />
+      <img
+        src={imgSrc}
+        className="w-full h-48 object-cover"
+        alt="AI Generated Image"
+      />
     </div>
   );
 }
+
+export default memo(CreatedImage);

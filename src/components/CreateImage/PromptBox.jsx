@@ -59,6 +59,7 @@ export default function PromptBox() {
           id="prompt"
           className="w-full p-2 rounded-full outline-none focus:ring-2 focus:ring-[#26cefb]"
           placeholder="Let's create something blazing"
+          required
         />
         <button
           type="submit"
@@ -98,7 +99,8 @@ export default function PromptBox() {
               }
               type="text"
               id="seed"
-              placeholder="Random"
+              placeholder="Random (positive numbers)"
+              pattern="^[1-9][0-9]*(\.[0-9]+)?$"
               className="w-full border-2 rounded-xl p-2 my-1"
             />
           </div>
@@ -113,6 +115,7 @@ export default function PromptBox() {
               type="number"
               id="width"
               value={promptSettings.width}
+              min="1"
               className="w-full border-2 rounded-xl p-2 my-1"
             />
           </div>
@@ -127,6 +130,7 @@ export default function PromptBox() {
               type="number"
               id="height"
               value={promptSettings.height}
+              min="1"
               className="w-full border-2 rounded-xl p-2 my-1"
             />
           </div>

@@ -1,3 +1,4 @@
-import { usePolinations } from "./usePollinations";
+import { usePollinations } from "./usePollinations";
 
-export { usePolinations };
+export { usePollinations };
+
