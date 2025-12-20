@@ -9,24 +9,37 @@ import { PollinationFetchContext } from "../../context";
 import CreatedImage from "./CreatedImages";
 
 export default function Result() {
-  const { generatedImage, loading, error } = useContext(
+  const { generatedImage, loading, error, getCachedImages } = useContext(
     PollinationFetchContext
   );
 
   const [imgArray, setImgArray] = useState([
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6,
+    { url: image1, id: "placeholder1", isPlaceholder: true },
+    { url: image2, id: "placeholder2", isPlaceholder: true },
+    { url: image3, id: "placeholder3", isPlaceholder: true },
+    { url: image4, id: "placeholder4", isPlaceholder: true },
+    { url: image5, id: "placeholder5", isPlaceholder: true },
+    { url: image6, id: "placeholder6", isPlaceholder: true },
   ]);
 
+  // Load cached images on mount and when new image is generated
   useEffect(() => {
-    if (generatedImage) {
-      setImgArray((prevArray) => [generatedImage, ...prevArray]);
-    }
-  }, [generatedImage]);
+    const cachedImages = getCachedImages ? getCachedImages() : [];
+
+    // Combine cached images with placeholders
+    // Filter out any null/undefined URLs and limit to reasonable number
+    const validCachedImages = cachedImages
+      .filter((img) => img && img.url)
+      .map((img) => ({ ...img, isPlaceholder: false }));
+
+    // Keep placeholders only if we don't have enough cached images
+    const allImages = [
+      ...validCachedImages,
+      ...imgArray.filter((img) => img.isPlaceholder),
+    ].slice(0, 12); // Limit to 12 images total
+
+    setImgArray(allImages);
+  }, [generatedImage, getCachedImages]);
 
   return (
     <section className="mx-2">
@@ -46,7 +59,11 @@ export default function Result() {
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {imgArray.map((img, index) => (
-          <CreatedImage key={index} imgSrc={img} />
+          <CreatedImage
+            key={img.id || index}
+            imgSrc={img.url}
+            imageData={img}
+          />
         ))}
       </div>
     </section>

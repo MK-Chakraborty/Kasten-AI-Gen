@@ -5,14 +5,22 @@ import { usePollinations } from "../hooks";
 export default function PollinationFetchProvider({ children }) {
   const [promptData, setPromptData] = useState({});
   const { prompt, height, width, seed, model } = promptData;
-  const { generatedImage, modelList, loading, error, imageGenerator } =
-    usePollinations(prompt, height, width, seed, model);
+  const {
+    generatedImage,
+    modelList,
+    loading,
+    error,
+    imageGenerator,
+    markAsDownloaded,
+    getCachedImages,
+    getDownloadedImages,
+  } = usePollinations(prompt, height, width, seed, model);
 
   useEffect(() => {
-    if (prompt && width && height) {
+    if (prompt) {
       imageGenerator();
     }
-  }, [prompt, width, height, seed, model]);
+  }, [imageGenerator, promptData]);
 
   return (
     <PollinationFetchContext.Provider
@@ -22,6 +30,9 @@ export default function PollinationFetchProvider({ children }) {
         loading,
         error,
         generatedImage,
+        markAsDownloaded,
+        getCachedImages,
+        getDownloadedImages,
       }}
     >
       {children}
